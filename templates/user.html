@@ -1,0 +1,41 @@
+{%extends "base.html"%}
+{%block title%}
+
+{%endblock%}
+
+{%block content%}
+<div class="w-75">
+    <h1>Welcome {{user.first_name}}</h1>
+    <p class="lead">User profile information</p>
+    <ul>
+        <li>Username: {{user.username}}</li>
+        <li>Email: {{user.email}}</li>
+        <li>First Name: {{user.first_name}}</li>
+        <li>Last Name: {{user.last_name}}</li>
+    </ul>
+    <form method="POST" action="/users/{{user.username}}/delete">
+        <button class="btn btn-danger">Delete Acct</button>
+    </form>
+    <br>
+    <p>Click <a href="/users/{{user.username}}/feedback/add">here</a> to add feedback</p>
+    {%if feedback%}
+    <div>
+        <h2>User Feedback</h2>
+        {%for item in feedback%}
+        <div class="card my-4">
+            <div class="card-body">
+                <h5 class="card-title text-primary">{{item.title}}
+                    <a href="/feedback/{{item.id}}/update"><button class="btn btn-sm btn-warning"><i
+                                class="fas fa-edit"></i></button></a>
+                    <form style="display:inline;" action="/feedback/{{item.id}}/delete" method="POST">
+                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                    </form>
+                </h5>
+                <p class="card-text">{{item.content}}</p>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+    {%endif%}
+</div>
+{%endblock%}
